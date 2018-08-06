@@ -1,0 +1,62 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<h2>Here are the Top 10 Players</h2>
+<table>
+    <thead> 
+        <th>Last Name</th> 
+        <th>First Name</th> 
+        <th>Team</th> 
+        <th>2pt FGs</th>
+        <th>3pt FGs</th>
+        <th>Rebounds</th>
+        <th>Assists</th>
+        <th>Steals</th>
+        <th>Total</th>
+    </thead> 
+    <tbody>
+        {{#each player}} 
+        <tr> 
+            <td>{{LastName}}</td> 
+            <td>{{FirstName}}</td> 
+            <td>{{Team}}</td> 
+            <td>{{2ptFGs}}</td>
+            <td>{{3ptFGs}}</td> 
+            <td>{{Rebounds}}</td> 
+            <td>{{Assists}}</td> 
+            <td>{{Steals}}</td>
+            <td>{{Total}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<h2>Here are the Top 10 Teams</h2>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Wins</th> 
+        <th>Losses</th> 
+        <th>GP</th>
+        <th>Win %</th>
+        <th>Head Coach</th>
+    </thead> 
+    <tbody>
+        {{#each team}} 
+        <tr> 
+            <td>{{Name}}</td> 
+            <td>{{Wins}}</td> 
+            <td>{{Losses}}</td> 
+            <td>{{GP}}</td>
+            <td>{{WinPerc}}</td> 
+            <td>{{HeadCoach}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+</html>
