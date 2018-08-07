@@ -28,10 +28,10 @@ app.set('port', process.argv[2]);
 
 app.set('mysql', mysql);
 
-app.use('/index_html', require('./index_html.js'));
+app.use('/', require('./index_html.js'));
 //app.use('/people', require('./people.js'));
 
-app.use('/', express.static('public'));
+//app.use('/', express.static('public'));
 //app.use(express.static('public'));
 
 app.use(function(req,res){
