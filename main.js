@@ -29,6 +29,7 @@ app.set('port', process.argv[2]);
 app.set('mysql', mysql);
 
 app.use('/', require('./index_html.js'));
+app.use('/players', require('./players.js'));
 //app.use('/people', require('./people.js'));
 
 //app.use('/', express.static('public'));
