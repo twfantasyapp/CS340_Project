@@ -1,0 +1,106 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<h2>Here are the Top 10 Players</h2>
+<table>
+    <thead> 
+        <th>Last Name</th> 
+        <th>First Name</th> 
+        <th>Team</th> 
+        <th>2pt FGs</th>
+        <th>3pt FGs</th>
+        <th>Rebounds</th>
+        <th>Assists</th>
+        <th>Steals</th>
+        <th>Total</th>
+    </thead> 
+    <tbody>
+        {{#each player}} 
+        <tr> 
+            <td>{{lastName}}</td> 
+            <td>{{firstName}}</td> 
+            <td>{{tName}}</td> 
+            <td>{{2ptFGs}}</td>
+            <td>{{3ptFGs}}</td> 
+            <td>{{rebounds}}</td> 
+            <td>{{assists}}</td> 
+            <td>{{steals}}</td>
+            <td>{{total}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<form action="/sortPlayer" method="post" class="indexForms" id="sortPlayer">
+    <fieldset>
+        <legend>Sort Players By:</legend>
+        <input type="radio" name="playerSort" value="lastName" /> Last Name
+        <input type="radio" name="playerSort" value="firstName" /> First Name
+        <input type="radio" name="playerSort" value="2ptFGs" /> 2pt FGs
+        <input type="radio" name="playerSort" value="3ptFGs" /> 3pt FGs
+        <input type="radio" name="playerSort" value="rebounds" /> Rebounds
+        <input type="radio" name="playerSort" value="assists" /> Assists
+        <input type="radio" name="playerSort" value="steals" /> Steals
+        <input type="radio" name="playerSort" value="total" /> Total <br />
+        <br />
+        <fieldset>
+            <input type="radio" name="ascDesc" value="asc" /> Ascending<br />
+            <input type="radio" name="ascDesc" value="desc" /> Descending
+        </fieldset>
+        <br />
+        <input type="submit" name="playerSubmit" value="Submit" />
+    </fieldset>  
+</form>
+
+<br>
+
+<h2>Here are the Top 10 Teams</h2>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Wins</th> 
+        <th>Losses</th> 
+        <th>GP</th>
+        <th>Win %</th>
+        <th>Head Coach</th>
+    </thead> 
+    <tbody>
+        {{#each team}} 
+        <tr> 
+            <td>{{name}}</td> 
+            <td>{{wins}}</td> 
+            <td>{{losses}}</td> 
+            <td>{{gp}}</td>
+            <td>{{winPerc}}</td> 
+            <td>{{headCoach}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<form action="/sortTeam" method="post" class="indexForms" id="indexTeam">
+    <fieldset>
+        <legend>Sort Teams By:</legend>
+        <input type="radio" name="teamSort" value="name" /> Name
+        <input type="radio" name="teamSort" value="wins" /> Wins
+        <input type="radio" name="teamSort" value="losses" /> Losses
+        <input type="radio" name="teamSort" value="winPerc" /> Win % <br />
+        <br />
+        <fieldset>
+            <input type="radio" name="ascDesc" value="asc" /> Ascending<br />
+            <input type="radio" name="ascDesc" value="desc" /> Descending
+        </fieldset>
+        <br />
+        <input type="submit" name="teamSubmit" value="Submit" />
+    </fieldset>  
+</form>
+
+<br>
+
+</html>
