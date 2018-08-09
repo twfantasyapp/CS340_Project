@@ -7,33 +7,25 @@
 
 var express = require('express');
 var mysql = require('./dbcon.js');
-var cors = require('cors');
-
-var app = express();
-
-app.use(cors());
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+var app = express();
+var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+
+var cors = require('cors');
+app.use(cors());
 
 app.engine('handlebars', handlebars.engine);
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+//app.use(express.static('public'));
 app.use('/static', express.static('public'));
-
-
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
-
 app.set('mysql', mysql);
-
 app.use('/', require('./index_html.js'));
 app.use('/players', require('./players.js'));
-//app.use('/people', require('./people.js'));
-
-//app.use('/', express.static('public'));
-//app.use(express.static('public'));
+app.use('/player_position', require('./player_pos.js'));
 
 app.use(function(req,res){
   res.status(404);
