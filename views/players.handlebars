@@ -7,6 +7,7 @@
     <ul class="hMenu">
         <li class="hMenuLinkHome"><a href="/">Home</a></li>
         <li class="hMenuLinkHome"><a href="/players">Players</a></li>
+        <li class="hMenuLinkHome"><a href="/players_position">Players' Positions</a></li>
         <li class="hMenuLinkHome"><a href="/teams">Teams</a></li>
         <li class="hMenuLinkHome"><a href="/coaches">Coaches</a></li>
         <li class="hMenuLinkHome"><a href="/other">Other</a></li>
@@ -40,7 +41,7 @@
             <td>{{steals}}</td>
             <td>{{total}}</td>
             <td><form><button formaction="/players/delete" method="get" name="deletePlayers" value="{{pId}}"> Delete</button></form></td>
-            <td><a href="/players/{{id}}">Edit</a></td>
+            <td><a href="/players/{{pId}}">Edit</a></td>
         </tr> 
         {{/each}} 
     </tbody> 
@@ -86,25 +87,16 @@
 
 <br>
 
-<form action="" method="get" class="playersForms" id="playersAdd">
+<form action="/players/addPlayer" method="post" class="playersForms" id="playersAdd">
     <fieldset>
         <legend>ADD New Player:</legend>
         First Name: <input type="text" name="firstName"><br />
         Last Name: <input type="text" name="lastName"><br />
         Team: <select name="team">
-                <option value="Team 1">Team 1</option>
-                <option value="Team 2">Team 2</option>
-                <option value="Team 3">Team 3</option>
-                <option value="Team 4">Team 4</option>
-                <option value="Team 5">Team 5</option>
-                <option value="Team 6">Team 6</option>
+            {{#each teams}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
               </select><br />
-       <!-- Position: <br />
-            <input type="checkbox" name="position" value="PG">PG<br />
-            <input type="checkbox" name="position" value="SG">SG<br />
-            <input type="checkbox" name="position" value="SF">SF<br />
-            <input type="checkbox" name="position" value="PF">PF<br />
-            <input type="checkbox" name="position" value="C">C<br /> -->
         <br />
         <input type="submit" name="playerAddSubmit" value="ADD" />
     </fieldset>  
@@ -112,62 +104,7 @@
 
 <br>
 
-<!-- This form is to modify an existing player to either change the team, change positions,
-     and/or add fantasy points                                                          -->
-<!-- <form action="" method="get" class="playersForms" id="playersEdit">
-    <fieldset>
-        <legend>EDIT Player:</legend>
-        Player ID: <select name="playerID">
-                      <option value="p1">ex. player1</option>
-                      <option value="p2">ex. player2</option>
-                      <option value="p3">ex. player3</option>
-                      <option value="p4">ex. player4</option>
-                      <option value="p5">ex. player5</option>
-                      <option value="p6">ex. player6</option>
-                   </select><br />
-        Team: <select name="team">
-                <option value="Team 1">Team 1</option>
-                <option value="Team 2">Team 2</option>
-                <option value="Team 3">Team 3</option>
-                <option value="Team 4">Team 4</option>
-                <option value="Team 5">Team 5</option>
-                <option value="Team 6">Team 6</option>
-              </select><br />
-        Position: <br />
-            <input type="checkbox" name="position" value="PG">PG<br />
-            <input type="checkbox" name="position" value="SG">SG<br />
-            <input type="checkbox" name="position" value="SF">SF<br />
-            <input type="checkbox" name="position" value="PF">PF<br />
-            <input type="checkbox" name="position" value="C">C<br />
-        Fantasy Points: <br />
-            2pt FGs: <input type="number" name="2ptFG"><br />
-            3pt FGs: <input type="number" name="3ptFG"><br />
-            Rebounds: <input type="number" name="rebounds"><br />
-            Assists: <input type="number" name="assists"><br />
-            Steals: <input type="number" name="steals"><br />
-        <br />
-        <input type="submit" name="playerEditSubmit" value="UPDATE" />
-    </fieldset>  
-</form> -->
-
 <br>
-
-<!-- This form is to delete an existing player from the player's entity -->
-<!-- <form action="" method="get" class="playersForms" id="playersDelete">
-    <fieldset>
-        <legend>DELETE Player:</legend>
-        Player ID: <select name="team">
-                      <option value="p1">ex. player1</option>
-                      <option value="p2">ex. player2</option>
-                      <option value="p3">ex. player3</option>
-                      <option value="p4">ex. player4</option>
-                      <option value="p5">ex. player5</option>
-                      <option value="p5">ex. player6</option>
-                   </select><br />
-        <br />
-        <input type="submit" name="playerDeleteSubmit" value="DELETE" />
-    </fieldset>  
-</form> -->
 
 <br>
 
