@@ -1,0 +1,98 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<div class="navBar">
+    <ul class="hMenu">
+        <li class="hMenuLinkHome"><a href="/">Home</a></li>
+        <li class="hMenuLinkHome"><a href="/players">Players</a></li>
+        <li class="hMenuLinkHome"><a href="/players_position">Players' Positions</a></li>
+        <li class="hMenuLinkHome"><a href="/teams">Teams</a></li>
+        <li class="hMenuLinkHome"><a href="/coaches">Coaches</a></li>
+        <li class="hMenuLinkHome"><a href="/other">Other</a></li>
+    </ul>
+</div>
+
+
+<h2>League Teams</h2>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Conference</th> 
+        <th>City</th> 
+        <th>Head Coach</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Win %</th>
+    </thead> 
+    <tbody>
+        {{#each teams}} 
+        <tr> 
+            <td>{{name}}</td> 
+            <td>{{conference}}</td> 
+            <td>{{city}}</td> 
+            <td>{{headCoach}}</td>
+            <td>{{wins}}</td> 
+            <td>{{losses}}</td> 
+            <td>{{winPerc}}</td> 
+            <!--<td><a href="/teams/{{tId}}">Edit</a></td>-->
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<!-- This form is to Sort the list of teams in the teams entity -->
+<form action="/teams/sortTeam" method="post" class="teamsForms" id="teamsSort">
+    <fieldset>
+        <legend>VIEW All Teams:</legend>
+        <fieldset>
+            <legend>SORT BY</legend>
+            <input type="radio" name="teamSort" value="name" checked="checked"/> Name
+            <input type="radio" name="teamSort" value="conference" /> Conference
+            <input type="radio" name="teamSort" value="city" /> City
+            <input type="radio" name="teamSort" value="headCoach" /> Head Coach
+            <input type="radio" name="teamSort" value="wins" /> Wins
+            <input type="radio" name="teamSort" value="losses" /> Losses
+            <input type="radio" name="teamSort" value="winPerc" /> Win % <br />
+        </fieldset><br />
+        <fieldset>
+            <legend>ORDER</legend>
+            <input type="radio" name="ascDesc" value="asc" /> Ascending<br />
+            <input type="radio" name="ascDesc" value="desc" checked="checked"/> Descending<br />
+        </fieldset><br />
+        <input type="submit" name="teamSortSubmit" value="Submit" />
+    </fieldset>  
+</form>
+
+<br>
+<!--
+<form action="/teams/addTeam" method="post" class="teamsForms" id="teamsAdd">
+    <fieldset>
+        <legend>ADD New Team:</legend>
+        Name: <input type="text" name="name"><br />
+        Conference: <select name="conference">
+            {{#each conference}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+              </select><br />
+		Name: <input type="text" name="city"><br />
+        Head Coach: <select name="headCoach">
+            {{#each headCoach}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+              </select><br />
+        <br />
+        <input type="submit" name="teamAddSubmit" value="ADD" />
+    </fieldset>  
+</form>
+-->
+<br>
+
+<br>
+
+<br>
+
+</html>
