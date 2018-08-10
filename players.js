@@ -189,8 +189,8 @@ module.exports = function(){
    /* The URI that update data is sent to in order to update a person */
     router.put('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "UPDATE prj_Player SET firstName=?, lastName=?, team=?, 2ptFGs=?, 3ptFGs=?, rebounds=?, assists=?, steals=? WHERE id=?";
-        var inserts = [req.body.firstName, req.body.lastName, req.body.team, req.body.twoptFG, req.body.thrptFG, req.body.rebounds, req.body.assists, req.body.steals, req.params.id];
+        var sql = "UPDATE prj_Player SET team=?, 2ptFGs=?, 3ptFGs=?, rebounds=?, assists=?, steals=? WHERE id=?";
+        var inserts = [req.body.team, req.body.twoptFG, req.body.thrptFG, req.body.rebounds, req.body.assists, req.body.steals, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
