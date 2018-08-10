@@ -50,8 +50,9 @@ module.exports = function(){
 
    /*function to filter players by name*/
     function filterPlayers(req, res, mysql, context, complete){
-      var query = "SELECT p.id as pId, lastName, firstName, t.name as tName, 2ptFGs, 3ptFGs, rebounds, assists, steals, (2ptFGs + 3ptFGs + rebounds + assists + steals) as `total` FROM prj_Player p INNER JOIN prj_Team t ON p.team = t.id WHERE (p.lastName = '" + req.body.lastNameFilter + "' AND p.firstName = '" + req.body.firstNameFilter + "') OR (p.lastName = '" + req.body.lastNameFilter + "' OR p.firstName = '" + req.body.firstNameFilter + "')";
-      mysql.pool.query(query, function(error, results, fields){
+      //var query = "SELECT p.id as pId, lastName, firstName, t.name as tName, 2ptFGs, 3ptFGs, rebounds, assists, steals, (2ptFGs + 3ptFGs + rebounds + assists + steals) as `total` FROM prj_Player p INNER JOIN prj_Team t ON p.team = t.id WHERE (p.lastName Like '%" + req.body.lastNameFilter + "%' AND p.firstName Like '%" + req.body.firstNameFilter + "%') OR (p.lastName = '" + req.body.lastNameFilter + "' OR p.firstName = '" + req.body.firstNameFilter + "')";
+      var query = "SELECT p.id as pId, lastName, firstName, t.name as tName, 2ptFGs, 3ptFGs, rebounds, assists, steals, (2ptFGs + 3ptFGs + rebounds + assists + steals) as `total` FROM prj_Player p INNER JOIN prj_Team t ON p.team = t.id WHERE (p.lastName Like '%" + req.body.lastNameFilter + "%' AND p.firstName Like '%" + req.body.firstNameFilter + "%')";
+	  mysql.pool.query(query, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
