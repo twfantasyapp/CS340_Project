@@ -29,8 +29,8 @@
     <tbody>
         {{#each teams}} 
         <tr> 
-            <td>{{name}}</td> 
-            <td>{{conference}}</td> 
+            <td>{{teamName}}</td> 
+            <td>{{confName}}</td> 
             <td>{{city}}</td> 
             <td>{{headCoach}}</td>
             <td>{{wins}}</td> 
@@ -45,13 +45,13 @@
 <br>
 
 <!-- This form is to Sort the list of teams in the teams entity -->
-<form action="/teams/sortTeam" method="post" class="teamsForms" id="teamsSort">
+<form action="/teams/sortTeams" method="post" class="teamsForms" id="teamsSort">
     <fieldset>
         <legend>VIEW All Teams:</legend>
         <fieldset>
             <legend>SORT BY</legend>
-            <input type="radio" name="teamSort" value="name" checked="checked"/> Name
-            <input type="radio" name="teamSort" value="conference" /> Conference
+            <input type="radio" name="teamSort" value="teamName" checked="checked"/> Name
+            <input type="radio" name="teamSort" value="confName" /> Conference
             <input type="radio" name="teamSort" value="city" /> City
             <input type="radio" name="teamSort" value="headCoach" /> Head Coach
             <input type="radio" name="teamSort" value="wins" /> Wins

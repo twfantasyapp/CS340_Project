@@ -120,7 +120,7 @@ module.exports = function(){
         }
     });
 
-    /*Display players by name*/
+    /*Display players using firstName and/or lastName filters*/
     router.post('/filterPlayer', function(req, res){
         var callbackCount = 0;
         var context = {};

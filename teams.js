@@ -10,9 +10,10 @@ module.exports = function(){
     var router = express.Router();
 
 
-    /*function to return teams in the drop-down list*/
+    /*function to return the table of the all teams (default)*/
     function getTeams(res, mysql, context, complete){
-		var sql = "SELECT t.id as tId, t.name, c.name as conference, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
+		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
+		               "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
 				  "FROM prj_Team t LEFT JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
 				  "ORDER BY t.name";
         mysql.pool.query(sql, function(error, results, fields){
@@ -21,6 +22,22 @@ module.exports = function(){
                 res.end();
             }
             context.teams  = results;
+            complete();
+        });
+    }
+	
+	/*function to sort teams based on user form selections*/
+    function sortTeams(req, res, mysql, context, complete){
+		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
+			           "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
+				  "FROM prj_Team t LEFT JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
+				  "ORDER BY " + req.body.teamSort + " " + req.body.ascDesc;
+		mysql.pool.query(sql, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.teams = results;
             complete();
         });
     }
@@ -41,6 +58,19 @@ module.exports = function(){
         }
     });
 
+	/*Display all teams by sorting order*/
+    router.post('/sortTeams', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        var mysql = req.app.get('mysql');
+        sortTeams(req, res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 1){
+                res.render('teams', context);
+            }
+        }
+    });
 	
 
 
