@@ -1,5 +1,5 @@
 /***************************************************************************************
-** Program name: CS340 Project players.js file
+** Program name: CS340 Project teams.js file
 ** Author: Takahiro Watanabe, Tyson Winneker
 ** Date: 08/10/18
 ** Description: Node.js file for our website's teams page.
@@ -46,7 +46,7 @@ module.exports = function(){
     function getOneTeam(res, mysql, context, id, complete){
         var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
 			           "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
-				  "FROM prj_Team t LEFT JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
+				  "FROM prj_Team t INNER JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
 				  "WHERE t.id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
@@ -71,10 +71,10 @@ module.exports = function(){
         });
     }
 	
-	/*function to return Head Coaches with no job in the Edit Team drop-down list*/
+	/*function to return existing HC or Head Coaches with no job in the Edit Team drop-down list*/
     function getHeadCoaches(res, mysql, context, id, complete){
-		var sql = "SELECT h.id as id, (concat(h.lastName, ', ', h.firstName)) as name " +
-				  "FROM prj_HeadCoach h INNER JOIN prj_Team t ON h.id = t.headCoach " +
+		var sql = "SELECT h.id as id, (concat(h.lastName, ' ', left(h.firstName,1),'.')) as name " +
+				  "FROM prj_HeadCoach h LEFT JOIN prj_Team t ON h.id = t.headCoach " +
 				  "WHERE h.id = (SELECT headCoach FROM prj_Team WHERE id = ?) Or " +
 				      "h.id NOT IN (SELECT headCoach FROM prj_Team)";
 		var inserts = [id];
@@ -88,6 +88,21 @@ module.exports = function(){
         });
     }
 	
+	/*function to return Head Coaches with no job in the Edit Team drop-down list*/
+    function getUnemployedHC(res, mysql, context, complete){
+		var sql = "SELECT h.id as id, (concat(h.lastName, ' ', left(h.firstName,1),'.')) as name " +
+				  "FROM prj_HeadCoach h LEFT JOIN prj_Team t ON h.id = t.headCoach " +
+				  "WHERE h.id NOT IN (SELECT headCoach FROM prj_Team)";
+        mysql.pool.query(sql, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.unemployed  = results;
+            complete();
+        });
+    }
+	
     /*Display all teams (default)*/
     router.get('/', function(req, res){
         var callbackCount = 0; 
@@ -95,9 +110,11 @@ module.exports = function(){
        // context.jsscripts = ["deleteteams.js"];
         var mysql = req.app.get('mysql');
         getTeams(res, mysql, context, complete);
+		getUnemployedHC(res, mysql, context, complete);
+		getConferences(res, mysql, context, complete);
         function complete(){
             callbackCount++;
-            if(callbackCount >= 1){
+            if(callbackCount >= 3){
                 res.render('teams', context);
             }
 
@@ -153,5 +170,23 @@ module.exports = function(){
         });
     });
 
+	/* Adds a team, redirects to the teams page after adding */
+    router.post('/addTeam', function(req, res){
+        var mysql = req.app.get('mysql');
+
+        var sql = "INSERT INTO prj_Team (name, conference, city, headCoach) VALUES (?,?,?,?)";
+        var inserts = [req.body.name, req.body.conference, req.body.city, req.body.headCoach];
+
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(JSON.stringify(error))
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.redirect('/teams');
+            }
+        });
+    });
+	
     return router;
 }();

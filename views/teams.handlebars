@@ -60,27 +60,27 @@
         </fieldset><br />
         <fieldset>
             <legend>ORDER</legend>
-            <input type="radio" name="ascDesc" value="asc" /> Ascending<br />
-            <input type="radio" name="ascDesc" value="desc" checked="checked"/> Descending<br />
+            <input type="radio" name="ascDesc" value="asc" checked="checked"/> Ascending<br />
+            <input type="radio" name="ascDesc" value="desc" /> Descending<br />
         </fieldset><br />
         <input type="submit" name="teamSortSubmit" value="Submit" />
     </fieldset>  
 </form>
 
 <br>
-<!--
+
 <form action="/teams/addTeam" method="post" class="teamsForms" id="teamsAdd">
     <fieldset>
         <legend>ADD New Team:</legend>
-        Name: <input type="text" name="name"><br />
-        Conference: <select name="conference">
-            {{#each conference}}
+        Name: <input type="text" name="name" required><br />
+        Conference: <select name="conference" required>
+            {{#each conferences}}
             <option value="{{id}}">{{name}}</option>
             {{/each}}
               </select><br />
-		Name: <input type="text" name="city"><br />
-        Head Coach: <select name="headCoach">
-            {{#each headCoach}}
+		City: <input type="text" name="city" required><br />
+        Head Coach: <select name="headCoach" required>
+            {{#each unemployed}}
             <option value="{{id}}">{{name}}</option>
             {{/each}}
               </select><br />
@@ -88,7 +88,7 @@
         <input type="submit" name="teamAddSubmit" value="ADD" />
     </fieldset>  
 </form>
--->
+
 <br>
 
 <br>
