@@ -12,7 +12,7 @@ module.exports = function(){
 
     /*function to return the table of the all teams (default)*/
     function getTeams(res, mysql, context, complete){
-		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
+		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as HCName, " +
 		               "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
 				  "FROM prj_Team t LEFT JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
 				  "ORDER BY t.name";
@@ -28,7 +28,7 @@ module.exports = function(){
 	
 	/*function to sort teams based on user form selections*/
     function sortTeams(req, res, mysql, context, complete){
-		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
+		var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as HCName, " +
 			           "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
 				  "FROM prj_Team t LEFT JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
 				  "ORDER BY " + req.body.teamSort + " " + req.body.ascDesc;
@@ -44,7 +44,7 @@ module.exports = function(){
 
 	/*function to return a single team when user wants to edit the team's attributes*/
     function getOneTeam(res, mysql, context, id, complete){
-        var sql = "SELECT t.id as tId, t.name as teamName, c.name as confName, t.city, (concat(h.lastName,' ', left(h.firstName,1),'.')) as headCoach, " +
+        var sql = "SELECT t.id as tId, t.name as teamName, t.conference as conId, c.name as confName, t.city, t.headCoach as hcId, (concat(h.lastName,' ', left(h.firstName,1),'.')) as HCName, " +
 			           "t.wins, t.losses, if((t.wins+t.losses)>0,t.wins/(t.wins+t.losses), 0) as winPerc " +
 				  "FROM prj_Team t INNER JOIN prj_Conference c ON t.conference = c.id LEFT JOIN prj_HeadCoach h ON t.headCoach = h.id " +
 				  "WHERE t.id = ?";
@@ -71,6 +71,19 @@ module.exports = function(){
         });
     }
 	
+
+/*    function getHeadCoaches(res, mysql, context, complete){
+        mysql.pool.query("SELECT id, name FROM prj_HeadCoach", function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.headCoaches = results;
+            complete();
+        });
+    }
+*/
+
 	/*function to return existing HC or Head Coaches with no job in the Edit Team drop-down list*/
     function getHeadCoaches(res, mysql, context, id, complete){
 		var sql = "SELECT h.id as id, (concat(h.lastName, ' ', left(h.firstName,1),'.')) as name " +
