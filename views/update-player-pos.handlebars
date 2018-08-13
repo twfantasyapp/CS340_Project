@@ -1,0 +1,14 @@
+<html>
+<h1>Update {{player.firstName}} {{player.lastName}}'s position(s):</h1>
+    <form id="edit_player_position" action="/players_position/update/{{player_with_pos.plyId}}/{{player_with_pos.posId}}" method="post">
+    <br>
+    Position:<sup>Multi-select</sup> <select multiple name="pos" id="pos-selector" required> 
+        {{!-- We display positions but the value that is submitted through the form is actually the position's id --}}
+        {{#each position}}
+        <option value="{{id}}">{{posName}}</option>
+        {{/each}}
+    </select><br>
+    <input type="submit" name="update" value="Update"> 
+    </form>
+<script defer>selectPos ({{player_with_pos.posId}});</script>
+</html>

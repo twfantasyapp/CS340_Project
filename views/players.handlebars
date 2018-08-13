@@ -90,8 +90,8 @@
 <form action="/players/addPlayer" method="post" class="playersForms" id="playersAdd">
     <fieldset>
         <legend>ADD New Player:</legend>
-        First Name: <input type="text" name="firstName"><br />
-        Last Name: <input type="text" name="lastName"><br />
+        First Name: <input type="text" name="firstName" required><br />
+        Last Name: <input type="text" name="lastName" required><br />
         Team: <select name="team">
             {{#each teams}}
             <option value="{{id}}">{{name}}</option>

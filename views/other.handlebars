@@ -14,6 +14,36 @@
     </ul>
 </div>
 
+<h2>Positions</h2>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Abbreviated Name</th>
+    </thead> 
+    <tbody>
+        {{#each position}} 
+        <tr> 
+            <td>{{name}}</td> 
+            <td>{{abbreviatedName}}</td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<form action="/other/addPosition" method="post" class="otherForms" id="otherAdd">
+    <fieldset>
+        <legend>ADD New Position:</legend>
+        Name: <input type="text" name="name" required><br />
+        Abbreviated Name: <input type="text" name="abbreviatedName" required><br />
+        <br />
+        <input type="submit" name="otherAddSubmit" value="ADD" />
+    </fieldset>  
+</form>
+
+<br>
+
 <h2>League Conferences</h2>
 <table>
     <thead> 

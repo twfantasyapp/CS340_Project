@@ -15,22 +15,22 @@
 </div>
 
 <div>
-<h3> Associate Postition(s) with a Player </h3>
-<!--    <form id="add_people_certificates" action="/people_certs" method="post">
-    Person: <select name='pid'>
-        {{#each people}}
-          <option value='{{pid}}'>{{fname}} {{lname}}</option>
+<h3> Associate Position(s) with a Player </h3>
+    <form id="add_player_position" action="/players_position" method="post">
+    Player: <select name='plyId'>
+        {{#each player}}
+          <option value='{{id}}'>{{firstName}} {{lastName}}</option>
         {{/each}}
     </select>
     <br>
-    Certificates:<sup>Multi-select</sup> <select multiple name="certs"> 
-        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
-        {{#each certificates}}
-        <option value="{{cid}}">{{title}}</option>
+    Position:<sup>Multi-select</sup> <select multiple name="pos" required> 
+        {{!-- We display positions but the value that is submitted through the form is actually the position's id --}}
+        {{#each position}}
+        <option value="{{id}}">{{posName}}</option>
         {{/each}}
     </select><br>
     <input type="submit" value="Submit">
-    </form> -->
+    </form>
 </div>
 <br/>
 <h3> List of Players' Positions </h3>
@@ -40,17 +40,17 @@
         <th>Position</th> 
     </thead> 
     <tbody> 
-<!--        {{#each people_with_certs}} 
+        {{#each player_with_pos}} 
         <tr> 
             <td>{{name}}</td> 
-            <td>{{certificate}}</td> 
-            <td><button onclick="deletePeopleCert({{pid}},{{cid}})">Delete</button></td>
-            <td><a href='#' onclick='javascript: alert("You can implement it just like the Add form.")'>Update</a></td>
+            <td>{{posName}}</td> 
+            <td><button onclick="deletePlayerPosition({{plyId}},{{posId}})">Delete</button></td>
+            <td><a href="/players_position/{{plyId}}/{{posId}}">Update</a></td>
         </tr>
         {{else}}
-        <b> No people with any certifications found! Grant some using the form. </b>
+        <b> No player with any position found! Grant some using the form. </b>
         {{/each}} 
--->
+
     </tbody>
-</table> -->
+</table>
 </html> 
