@@ -72,18 +72,6 @@ module.exports = function(){
     }
 	
 
-/*    function getHeadCoaches(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name FROM prj_HeadCoach", function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.end();
-            }
-            context.headCoaches = results;
-            complete();
-        });
-    }
-*/
-
 	/*function to return existing HC or Head Coaches with no job in the Edit Team drop-down list*/
     function getHeadCoaches(res, mysql, context, id, complete){
 		var sql = "SELECT h.id as id, (concat(h.lastName, ' ', left(h.firstName,1),'.')) as name " +
@@ -169,8 +157,8 @@ module.exports = function(){
 	/* The URI that update data is sent to in order to update a team */
     router.put('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "UPDATE prj_Team SET conference=?, city=?, headCoach=?, wins=?, losses=? WHERE id=?";
-        var inserts = [req.body.confName, req.body.city, req.body.headCoach, req.body.wins, req.body.losses, req.params.id];
+        var sql = "UPDATE prj_Team SET name=?, conference=?, city=?, headCoach=?, wins=?, losses=? WHERE id=?";
+        var inserts = [req.body.teamName, req.body.confName, req.body.city, req.body.headCoach, req.body.wins, req.body.losses, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)

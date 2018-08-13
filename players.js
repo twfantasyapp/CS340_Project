@@ -50,7 +50,6 @@ module.exports = function(){
 
    /*function to filter players by name*/
     function filterPlayers(req, res, mysql, context, complete){
-      //var query = "SELECT p.id as pId, lastName, firstName, t.name as tName, 2ptFGs, 3ptFGs, rebounds, assists, steals, (2ptFGs + 3ptFGs + rebounds + assists + steals) as `total` FROM prj_Player p INNER JOIN prj_Team t ON p.team = t.id WHERE (p.lastName Like '%" + req.body.lastNameFilter + "%' AND p.firstName Like '%" + req.body.firstNameFilter + "%') OR (p.lastName = '" + req.body.lastNameFilter + "' OR p.firstName = '" + req.body.firstNameFilter + "')";
       var query = "SELECT p.id as pId, lastName, firstName, t.name as tName, 2ptFGs, 3ptFGs, rebounds, assists, steals, (2ptFGs + 3ptFGs + rebounds + assists + steals) as `total` FROM prj_Player p INNER JOIN prj_Team t ON p.team = t.id WHERE (p.lastName Like '%" + req.body.lastNameFilter + "%' AND p.firstName Like '%" + req.body.firstNameFilter + "%')";
 	  mysql.pool.query(query, function(error, results, fields){
             if(error){
@@ -92,7 +91,6 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0; 
         var context = {};
-       // context.jsscripts = ["deleteplayers.js"];
         var mysql = req.app.get('mysql');
         getPlayers(res, mysql, context, complete);
         getTeams(res, mysql, context, complete);
@@ -137,8 +135,6 @@ module.exports = function(){
 
     /* Adds a player, redirects to the players page after adding */
     router.post('/addPlayer', function(req, res){
-        //console.log(req.body.homeworld)
-        //console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO prj_Player (firstName, lastName, team) VALUES (?,?,?)";
         var inserts = [req.body.firstName, req.body.lastName, req.body.team];
@@ -189,8 +185,8 @@ module.exports = function(){
    /* The URI that update data is sent to in order to update a person */
     router.put('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "UPDATE prj_Player SET team=?, 2ptFGs=?, 3ptFGs=?, rebounds=?, assists=?, steals=? WHERE id=?";
-        var inserts = [req.body.team, req.body.twoptFG, req.body.thrptFG, req.body.rebounds, req.body.assists, req.body.steals, req.params.id];
+        var sql = "UPDATE prj_Player SET lastName=?, firstName=?, team=?, 2ptFGs=?, 3ptFGs=?, rebounds=?, assists=?, steals=? WHERE id=?";
+        var inserts = [req.body.lastName, req.body.firstName, req.body.team, req.body.twoptFG, req.body.thrptFG, req.body.rebounds, req.body.assists, req.body.steals, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)

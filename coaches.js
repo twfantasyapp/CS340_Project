@@ -12,7 +12,7 @@ module.exports = function(){
 
     /*function to return the table of the all coaches (default)*/
     function getCoaches(res, mysql, context, complete){
-		var sql = "SELECT h.id as hId, h.lastName, h.firstName, (DATE_FORMAT(dob, '%m/%d/%Y')) as dob, email, salary, t.name as team " +
+		var sql = "SELECT h.id as hId, h.lastName, h.firstName, (DATE_FORMAT(dob, '%Y-%m-%d')) as dob, email, salary, t.name as team " +
 				  "FROM prj_HeadCoach h LEFT JOIN prj_Team t ON h.id = t.headCoach " +
 				  "ORDER BY h.lastName";
 		
@@ -28,7 +28,7 @@ module.exports = function(){
 	
 	/*function to sort coaches based on user form selections*/
     function sortCoaches(req, res, mysql, context, complete){
-		var sql = "SELECT h.id as hId, h.lastName, h.firstName, (DATE_FORMAT(dob, '%m/%d/%Y')) as dob, email, salary, t.name as team " +
+		var sql = "SELECT h.id as hId, h.lastName, h.firstName, (DATE_FORMAT(dob, '%Y-%m-%d')) as dob, email, salary, t.name as team " +
 				  "FROM prj_HeadCoach h LEFT JOIN prj_Team t ON h.id = t.headCoach " +
 				  "ORDER BY " + req.body.coachSort + " " + req.body.ascDesc;
 				  
@@ -44,7 +44,7 @@ module.exports = function(){
 
 	/*function to return a single coach when user wants to edit the coach's attributes*/
     function getOneCoach(res, mysql, context, id, complete){
-        var sql = "SELECT id as hId, lastName, firstName, (DATE_FORMAT(dob, '%m/%d/%Y')) as dob, email, salary " +
+        var sql = "SELECT id as hId, lastName, firstName, (DATE_FORMAT(dob, '%Y-%m-%d')) as dob, email, salary " +
 				  "FROM prj_HeadCoach " +
 				  "WHERE id = ?";
         var inserts = [id];
@@ -116,8 +116,8 @@ module.exports = function(){
 		if(req.body.salary==0){
 			req.body.salary = null;
 		}
-        var sql = "UPDATE prj_HeadCoach SET dob=STR_TO_DATE(?, '%m/%d/%Y'), email=?, salary=? WHERE id=?";
-        var inserts = [req.body.dob, req.body.email, req.body.salary, req.params.id];
+        var sql = "UPDATE prj_HeadCoach SET lastName=?, firstName=?, dob=STR_TO_DATE(?, '%Y-%m-%d'), email=?, salary=? WHERE id=?";
+        var inserts = [req.body.lastName, req.body.firstName, req.body.dob, req.body.email, req.body.salary, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
@@ -142,7 +142,7 @@ module.exports = function(){
 		if(req.body.salary==0){
 			req.body.salary = null;
 		}
-        var sql = "INSERT INTO prj_HeadCoach (lastName, firstName, dob, email, salary) VALUES (?,?,STR_TO_DATE(?, '%m/%d/%Y'),?,?)";
+        var sql = "INSERT INTO prj_HeadCoach (lastName, firstName, dob, email, salary) VALUES (?,?,STR_TO_DATE(?, '%Y-%m-%d'),?,?)";
         var inserts = [req.body.lastName, req.body.firstName, req.body.dob, req.body.email, req.body.salary];
 
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
