@@ -1,0 +1,48 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<div class="navBar">
+    <ul class="hMenu">
+        <li class="hMenuLinkHome"><a href="/">Home</a></li>
+        <li class="hMenuLinkHome"><a href="/players">Players</a></li>
+        <li class="hMenuLinkHome"><a href="/players_position">Players' Positions</a></li>
+        <li class="hMenuLinkHome"><a href="/teams">Teams</a></li>
+        <li class="hMenuLinkHome"><a href="/coaches">Coaches</a></li>
+        <li class="hMenuLinkHome"><a href="/other">Other</a></li>
+    </ul>
+</div>
+
+<h2>League Conferences</h2>
+<table>
+    <thead> 
+        <th>Name</th> 
+    </thead> 
+    <tbody>
+        {{#each conferences}} 
+        <tr> 
+            <td>{{name}}</td> 
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+
+<br>
+
+<form action="/other/addConference" method="post" class="otherForms" id="otherAdd">
+    <fieldset>
+        <legend>ADD New Conference:</legend>
+        Name: <input type="text" name="name" required><br />
+        <br />
+        <input type="submit" name="otherAddSubmit" value="ADD" />
+    </fieldset>  
+</form>
+
+<br>
+
+<br>
+
+<br>
+
+</html>

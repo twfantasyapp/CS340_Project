@@ -28,6 +28,7 @@ app.use('/players', require('./players.js'));
 app.use('/players_position', require('./player_pos.js'));
 app.use('/teams', require('./teams.js'));
 app.use('/coaches', require('./coaches.js'));
+app.use('/other', require('./other.js'));
 
 app.use(function(req,res){
   res.status(404);
