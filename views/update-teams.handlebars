@@ -14,8 +14,8 @@
         {{/each}}
     </select><br>
     Record: <br />
-    Wins: <input type="number" name="wins" value="{{team.wins}}"><br />
-    Losses: <input type="number" name="losses" value="{{team.losses}}"><br />
+    Wins: <input type="number" name="wins" min="0" value="{{team.wins}}"><br />
+    Losses: <input type="number" name="losses" min="0" value="{{team.losses}}"><br />
 </form>
 <button onclick="updateTeam ( {{team.tId}} )">Update</button>
 <script defer>selectConference ({{team.conId}});</script>

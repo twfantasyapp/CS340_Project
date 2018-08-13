@@ -9,11 +9,11 @@
         {{/each}}
     </select><br>
     Fantasy Points: <br />
-    2pt FGs: <input type="number" name="twoptFG" value="{{player.2ptFGs}}"><br />
-    3pt FGs: <input type="number" name="thrptFG" value="{{player.3ptFGs}}"><br />
-    Rebounds: <input type="number" name="rebounds" value="{{player.rebounds}}"><br />
-    Assists: <input type="number" name="assists" value="{{player.assists}}"><br />
-    Steals: <input type="number" name="steals" value="{{player.steals}}"><br />
+    2pt FGs: <input type="number" name="twoptFG" min="0" value="{{player.2ptFGs}}"><br />
+    3pt FGs: <input type="number" name="thrptFG" min="0" value="{{player.3ptFGs}}"><br />
+    Rebounds: <input type="number" name="rebounds" min="0" value="{{player.rebounds}}"><br />
+    Assists: <input type="number" name="assists" min="0" value="{{player.assists}}"><br />
+    Steals: <input type="number" name="steals" min="0" value="{{player.steals}}"><br />
 </form>
 <button onclick="updatePlayer ( {{player.id}} )">Update</button>
 <script defer>selectTeam ({{player.team}});</script>
